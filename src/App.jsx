@@ -253,6 +253,21 @@ const App = () => {
       </div>
     )}
   </div>
+  <div className="w-full bg-white shadow-md mt-8 rounded-xl p-4 md:p-6 lg:p-8 text-center">
+  <p className="text-gray-600 text-sm md:text-base">
+    © {new Date().getFullYear()} Real-Time Translator. All rights reserved.
+  </p>
+  <div className="flex justify-center space-x-4 mt-3">
+    <a href="https://www.linkedin.com/in/ayush-kumarrai/" className="text-indigo-600 hover:underline text-sm md:text-base">
+      Ayush Kumar Rai
+    </a>
+    <span className="text-gray-400">|</span>
+    <a href="#" className="text-indigo-600 hover:underline text-sm md:text-base">
+      NTorQ YT
+    </a>
+  </div>
+</div>
+
 </div>
   );
 };
