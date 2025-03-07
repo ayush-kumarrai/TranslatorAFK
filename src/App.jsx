@@ -290,11 +290,11 @@ const App = () => {
     © {new Date().getFullYear()} Real-Time Translator. All rights reserved.
   </p>
   <div className="flex justify-center space-x-4 mt-3">
-    <a href="#" className="text-indigo-600 hover:underline text-sm md:text-base">
+    <a href="https://www.linkedin.com/in/ayush-kumarrai/" className="text-indigo-600 hover:underline text-sm md:text-base">
       Ayush Kumar Rai
     </a>
     <span className="text-gray-400">|</span>
-    <a href="#" className="text-indigo-600 hover:underline text-sm md:text-base">
+    <a href="https://www.linkedin.com/in/ayush-kumarrai/" className="text-indigo-600 hover:underline text-sm md:text-base">
       NTorQ YT
     </a>
   </div>
