@@ -143,149 +143,164 @@ const App = () => {
 
   return (
     <div className="min-h-screen w-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 md:p-6 lg:p-8">
-    <div className="w-full mx-auto bg-white rounded-xl shadow-lg p-4 md:p-6 lg:p-8">
+  <div className="w-full mx-auto bg-white rounded-xl shadow-lg p-4 md:p-6 lg:p-8">
+  
+    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 md:mb-8 text-indigo-800">Real-Time Translator</h1>
     
-      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 md:mb-8 text-indigo-800">Real-Time Translator</h1>
-      
-      {error && (
-        <div className="mb-6 p-3 md:p-4 bg-red-100 text-red-700 rounded-lg border border-red-200 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-          </svg>
-          {error}
-        </div>
-      )}
-      
-      <div className="flex flex-col sm:flex-row gap-4 mb-6 w-full">
-        <div className="flex-1 w-full">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Source Language</label>
-          <select
-            className="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-gradient-to-r from-gray-50 to-white text-gray-700 shadow-sm appearance-none cursor-pointer hover:border-indigo-300 transition-colors"
-            value={sourceLang}
-            onChange={(e) => setSourceLang(e.target.value)}
-          >
-            {languages.map(lang => (
-              <option key={lang.code} value={lang.code}>{lang.name}</option>
-            ))}
-          </select>
-        </div>
-        
-        <div className="flex-1 w-full">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Target Language</label>
-          <select
-            className="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-gradient-to-r from-gray-50 to-white text-gray-700 shadow-sm appearance-none cursor-pointer hover:border-indigo-300 transition-colors"
-            value={targetLang}
-            onChange={(e) => setTargetLang(e.target.value)}
-          >
-            {languages.map(lang => (
-              <option key={lang.code} value={lang.code}>{lang.name}</option>
-            ))}
-          </select>
-        </div>
+    {error && (
+      <div className="mb-6 p-3 md:p-4 bg-red-100 text-red-700 rounded-lg border border-red-200 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+        </svg>
+        {error}
       </div>
-      <div className="flex justify-center gap-40 mb-8">
-        <div className="text-center">
-          <div className={`transition-all duration-300 ${
-            currentMode === 'user' ? 'opacity-100 scale-110' : 'opacity-40 scale-90 grayscale'
-          }`}>
-            <img 
-              src={`/avatars/${sourceLang}.png`} 
-              className="w-24 h-24 rounded-full object-cover"
-              alt="Your Avatar"
-            />
-          </div>
-          <div className="mt-2 text-sm text-gray-600">
-            You ({languages.find(l => l.code === sourceLang)?.name})
-          </div>
-        </div>
-        
-        <div className="text-center">
-          <div className={`transition-all duration-300 ${
-            currentMode === 'them' ? 'opacity-100 scale-110' : 'opacity-40 scale-90 grayscale'
-          }`}>
-            <img 
-              src={`/avatars/${targetLang}.png`} 
-              className="w-24 h-24 rounded-full object-cover"
-              alt="Their Avatar"
-            />
-          </div>
-          <div className="mt-2 text-sm text-gray-600">
-            Them ({languages.find(l => l.code === targetLang)?.name})
-          </div>
-        </div>
-      </div>
-      
-      <div className="flex gap-4 justify-center mb-6 md:mb-8">
-        <button
-          onClick={toggleAutoMode}
-          className={`w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-white font-medium shadow-md transition-all duration-200 flex items-center justify-center gap-2 hover:shadow-lg ${
-            isAutoMode ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'
-          }`}
+    )}
+    
+    <div className="flex flex-col sm:flex-row gap-4 mb-6 w-full">
+      <div className="flex-1 w-full">
+        <label className="block text-sm font-medium text-gray-700 mb-1">Source Language</label>
+        <select
+          className="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-gradient-to-r from-gray-50 to-white text-gray-700 shadow-sm appearance-none cursor-pointer hover:border-indigo-300 transition-colors"
+          value={sourceLang}
+          onChange={(e) => setSourceLang(e.target.value)}
         >
-          {isAutoMode ? <FaStop /> : <FaPlay />}
-          {isAutoMode ? 'Stop Conversation' : 'Start Conversation'}
-        </button>
+          {languages.map(lang => (
+            <option key={lang.code} value={lang.code}>{lang.name}</option>
+          ))}
+        </select>
       </div>
       
-      <div className="border border-gray-200 rounded-lg p-3 md:p-4 mb-6 bg-gray-50 w-full">
-        <div className="font-bold mb-2 text-gray-800">Live Transcription:</div>
-        <div className="text-gray-700 min-h-12 p-2 md:p-3 bg-white rounded-md border border-gray-100 w-full">
-          {transcript || "Waiting for speech..."}
-        </div>
+      <div className="flex-1 w-full">
+        <label className="block text-sm font-medium text-gray-700 mb-1">Target Language</label>
+        <select
+          className="w-full p-2 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-gradient-to-r from-gray-50 to-white text-gray-700 shadow-sm appearance-none cursor-pointer hover:border-indigo-300 transition-colors"
+          value={targetLang}
+          onChange={(e) => setTargetLang(e.target.value)}
+        >
+          {languages.map(lang => (
+            <option key={lang.code} value={lang.code}>{lang.name}</option>
+          ))}
+        </select>
       </div>
-      
-      <div className="border border-gray-200 rounded-lg p-3 md:p-4 bg-gray-50 w-full">
-        <h2 className="font-bold mb-3 md:mb-4 text-gray-800 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
-          Conversation History:
-        </h2>
-        <div className="space-y-3 md:space-y-4 max-h-72 md:max-h-96 overflow-y-auto w-full">
-          {conversation.length > 0 ? (
-            conversation.map((entry, index) => (
-              <div 
-                key={index} 
-                className={`p-3 md:p-4 rounded-lg shadow-sm w-full ${
-                  entry.speaker === 'You' ? 'bg-blue-50 border-l-4 border-blue-400' :
-                  entry.speaker === 'Voice' ? 'bg-green-50 border-l-4 border-green-400' :
-                  entry.speaker === 'Them' ? 'bg-yellow-50 border-l-4 border-yellow-400' : 'bg-purple-50 border-l-4 border-purple-400'
-                }`}
-              >
-                <div className="font-semibold text-sm text-gray-600 mb-1 flex items-center">
-                  {entry.speaker === 'You' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                    </svg>
-                  )}
-                  {entry.speaker === 'Voice' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clipRule="evenodd" />
-                    </svg>
-                  )}
-                  {entry.speaker === 'Them' && (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
-                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-                    </svg>
-                  )}
-                  {entry.speaker} ({entry.lang}):
-                </div>
-                <div className="text-gray-800">{entry.text}</div>
-              </div>
-            ))
-          ) : (
-            <div className="text-center text-gray-500 py-6">No conversation history yet</div>
-          )}
-        </div>
-      </div>
-      
-      {listening && (
-        <div className="fixed bottom-6 right-6 bg-indigo-600 text-white p-3 md:p-4 rounded-full shadow-xl flex items-center justify-center">
-          <FaMicrophone className="animate-pulse" size={24} />
-        </div>
-      )}
     </div>
+    <div className="flex justify-center gap-40 mb-8">
+      <div className="text-center">
+        <div className={`transition-all duration-300 ${
+          currentMode === 'user' ? 'opacity-100 scale-110' : 'opacity-40 scale-90 grayscale'
+        }`}>
+          <img 
+            src={`/avatars/${sourceLang}.png`} 
+            className="w-24 h-24 rounded-full object-cover"
+            alt="Your Avatar"
+          />
+        </div>
+        <div className="mt-2 text-sm text-gray-600">
+          You ({languages.find(l => l.code === sourceLang)?.name})
+        </div>
+      </div>
+      
+      <div className="text-center">
+        <div className={`transition-all duration-300 ${
+          currentMode === 'them' ? 'opacity-100 scale-110' : 'opacity-40 scale-90 grayscale'
+        }`}>
+          <img 
+            src={`/avatars/${targetLang}.png`} 
+            className="w-24 h-24 rounded-full object-cover"
+            alt="Their Avatar"
+          />
+        </div>
+        <div className="mt-2 text-sm text-gray-600">
+          Them ({languages.find(l => l.code === targetLang)?.name})
+        </div>
+      </div>
+    </div>
+    
+    <div className="flex gap-4 justify-center mb-6 md:mb-8">
+      <button
+        onClick={toggleAutoMode}
+        className={`w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-white font-medium shadow-md transition-all duration-200 flex items-center justify-center gap-2 hover:shadow-lg ${
+          isAutoMode ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'
+        }`}
+      >
+        {isAutoMode ? <FaStop /> : <FaPlay />}
+        {isAutoMode ? 'Stop Conversation' : 'Start Conversation'}
+      </button>
+    </div>
+    
+    <div className="border border-gray-200 rounded-lg p-3 md:p-4 mb-6 bg-gray-50 w-full">
+      <div className="font-bold mb-2 text-gray-800">Live Transcription:</div>
+      <div className="text-gray-700 min-h-12 p-2 md:p-3 bg-white rounded-md border border-gray-100 w-full">
+        {transcript || "Waiting for speech..."}
+      </div>
+    </div>
+    
+    <div className="border border-gray-200 rounded-lg p-3 md:p-4 bg-gray-50 w-full">
+      <h2 className="font-bold mb-3 md:mb-4 text-gray-800 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        </svg>
+        Conversation History:
+      </h2>
+      <div className="space-y-3 md:space-y-4 max-h-72 md:max-h-96 overflow-y-auto w-full">
+        {conversation.length > 0 ? (
+          conversation.map((entry, index) => (
+            <div 
+              key={index} 
+              className={`p-3 md:p-4 rounded-lg shadow-sm w-full ${
+                entry.speaker === 'You' ? 'bg-blue-50 border-l-4 border-blue-400' :
+                entry.speaker === 'Voice' ? 'bg-green-50 border-l-4 border-green-400' :
+                entry.speaker === 'Them' ? 'bg-yellow-50 border-l-4 border-yellow-400' : 'bg-purple-50 border-l-4 border-purple-400'
+              }`}
+            >
+              <div className="font-semibold text-sm text-gray-600 mb-1 flex items-center">
+                {entry.speaker === 'You' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                  </svg>
+                )}
+                {entry.speaker === 'Voice' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clipRule="evenodd" />
+                  </svg>
+                )}
+                {entry.speaker === 'Them' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                  </svg>
+                )}
+                {entry.speaker} ({entry.lang}):
+              </div>
+              <div className="text-gray-800">{entry.text}</div>
+            </div>
+          ))
+        ) : (
+          <div className="text-center text-gray-500 py-6">No conversation history yet</div>
+        )}
+      </div>
+    </div>
+    
+    {listening && (
+      <div className="fixed bottom-6 right-6 bg-indigo-600 text-white p-3 md:p-4 rounded-full shadow-xl flex items-center justify-center">
+        <FaMicrophone className="animate-pulse" size={24} />
+      </div>
+    )}
   </div>
+  <div className="w-full bg-white shadow-md mt-8 rounded-xl p-4 md:p-6 lg:p-8 text-center">
+  <p className="text-gray-600 text-sm md:text-base">
+    © {new Date().getFullYear()} Real-Time Translator. All rights reserved.
+  </p>
+  <div className="flex justify-center space-x-4 mt-3">
+    <a href="#" className="text-indigo-600 hover:underline text-sm md:text-base">
+      Ayush Kumar Rai
+    </a>
+    <span className="text-gray-400">|</span>
+    <a href="#" className="text-indigo-600 hover:underline text-sm md:text-base">
+      NTorQ YT
+    </a>
+  </div>
+</div>
+
+</div>
   );
 };
 
